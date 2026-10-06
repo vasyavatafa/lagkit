@@ -1,0 +1,38 @@
+# Пример конфига lagkit. Все значения ниже — значения по умолчанию.
+# Неизвестный ключ — ошибка (опечатка не должна тихо вернуть значение по умолчанию).
+
+date_col: DATE
+date_format: null          # null = автопарсинг: ISO или ДД.ММ.ГГГГ (dayfirst)
+layout: wide               # wide | long
+default_lags: {м: 30, н: 7, д: 1}   # лаг по умолчанию, дни (пустой object_lag в master)
+periods: {м: 30, н: 7, д: 1}        # ожидаемый шаг отчётов, дни (для диагностики)
+value_tol: 0               # допуск сравнения значений при поиске блоков
+snapshot_date: null        # null = max(DATE); иначе дата снимка, напр. 2026-10-01
+calendar: vitrine          # vitrine | daily
+ffill_limit: null          # дни от available_date; null = протягивать без ограничения
+drop_leading_empty: false
+known_date_col: DATE
+date_suffix: __available_date
+fill_flag_suffix: __is_filled
+journal_fill_flag: false
+keep_empty: false
+strict: false
+lags_override: null        # путь к сохранённой таблице лагов (lags.csv/.parquet/.xlsx)
+output_dir: ./lag_output
+output_format: parquet     # parquet | csv | xlsx
+
+# Чтение входных файлов
+master_sheet: 0            # имя или номер листа xlsx
+data_sheet: 0
+csv_sep: null              # null = автоопределение , / ; / табуляция
+csv_encoding: null         # null = utf-8 с откатом на cp1251
+
+diagnostics:
+  gap_factor: 1.5          # интервал > 1,5 периода = пропуск отчёта
+  stale_periods: 3         # последний отчёт старше 3 периодов + лаг = ряд устарел
+  min_interval_share: 0.5  # м/н: медианный интервал < 0,5 периода = неверная частотность
+  daily_change_share: 0.14285714285714285   # д: меняется реже раза в неделю (1/7)
+  daily_min_obs: 14
+  mixed_share_diff: 0.5    # разница долей одиночных значений в половинах истории
+  mixed_min_cells: 3
+  max_gaps_in_message: 5

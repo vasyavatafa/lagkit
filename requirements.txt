@@ -1,0 +1,11 @@
+pandas>=1.5
+numpy
+openpyxl
+# необязательные
+pyarrow
+pyyaml
+# разработка
+pytest
+nbformat
+nbconvert
+ipykernel
